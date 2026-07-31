@@ -5,6 +5,7 @@ import os
 
 from strategies.cpu_numpy import run as cpu_numpy
 from strategies.torch_cublas import run as torch_cublas
+from strategies.fp16_tensor import run as fp16_tensor
 
 
 # Matrix size
@@ -34,6 +35,7 @@ def main():
     experiments = {
     "CPU NumPy": cpu_numpy,
     "cuBLAS GEMM": torch_cublas,
+    "Tensor Core FP16": fp16_tensor,
 }
 
 
