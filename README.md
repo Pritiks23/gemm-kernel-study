@@ -48,6 +48,7 @@ Each implementation is evaluated using:
 
 ## Experiment Design
 
+```text
                  GEMM Benchmark
                         |
     ------------------------------------------------
@@ -63,7 +64,7 @@ Baseline                  |                    FP16 GEMM
 
           Naive CUDA          Tiled CUDA
           Global Memory       Shared Memory
-
+```
 
 ## Technologies
 
