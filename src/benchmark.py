@@ -4,6 +4,7 @@ import pandas as pd
 import os
 
 from strategies.cpu_numpy import run as cpu_numpy
+from strategies.torch_cublas import run as torch_cublas
 
 
 # Matrix size
