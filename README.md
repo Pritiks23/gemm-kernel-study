@@ -17,13 +17,15 @@ The independent variable is:
 
 The following approaches are compared:
 
-| Strategy | Description |
+## 🟢 GPU Computation Strategies
+
+| 🧩 Strategy | 📝 Description |
 |---|---|
-| CPU NumPy | CPU baseline implementation |
-| cuBLAS GEMM | NVIDIA optimized FP32 GPU implementation |
-| Tensor Core FP16 GEMM | FP16 matrix multiplication using Tensor Core acceleration |
-| Naive CUDA Kernel | Custom CUDA implementation using global memory |
-| Tiled CUDA Kernel | Custom CUDA implementation using shared memory reuse |
+| 🖥️ **CPU NumPy** | CPU baseline implementation |
+| 🟩 **cuBLAS GEMM** | NVIDIA optimized FP32 GPU implementation |
+| 🟣 **Tensor Core FP16 GEMM** | FP16 matrix multiplication using Tensor Core acceleration |
+| 🔵 **Naive CUDA Kernel** | Custom CUDA implementation using global memory |
+| 🟠 **Tiled CUDA Kernel** | Custom CUDA implementation using shared memory reuse |
 
 ---
 
