@@ -6,6 +6,8 @@ import os
 from strategies.cpu_numpy import run as cpu_numpy
 from strategies.torch_cublas import run as torch_cublas
 from strategies.fp16_tensor import run as fp16_tensor
+from strategies.naive_cuda import run as naive_cuda
+from strategies.tiled_cuda import run as tiled_cuda
 
 
 # Matrix size
