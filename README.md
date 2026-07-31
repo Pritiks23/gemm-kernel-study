@@ -1,4 +1,4 @@
-![AMD Matrix Cores Architecture](https://rocm.blogs.amd.com/_images/software-tools-optimization-matrix-cores-cdna-images-matrix-cores-cdna.webp)
+![](https://rocm.blogs.amd.com/_images/software-tools-optimization-matrix-cores-cdna-images-matrix-cores-cdna.webp)
 
 
 # GEMM Kernel Optimization Study
