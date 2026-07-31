@@ -1,3 +1,6 @@
+!(https://rocm.blogs.amd.com/_images/software-tools-optimization-matrix-cores-cdna-images-matrix-cores-cdna.webp)
+
+
 # GEMM Kernel Optimization Study
 
 A CUDA benchmarking experiment analyzing how different matrix multiplication implementations affect GPU performance.
