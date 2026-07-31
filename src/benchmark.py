@@ -32,8 +32,9 @@ def main():
 
 
     experiments = {
-        "CPU NumPy": cpu_numpy,
-    }
+    "CPU NumPy": cpu_numpy,
+    "cuBLAS GEMM": torch_cublas,
+}
 
 
     results = []
