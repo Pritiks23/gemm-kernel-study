@@ -35,9 +35,17 @@ def main():
 
 
     experiments = {
+
     "CPU NumPy": cpu_numpy,
+
     "cuBLAS GEMM": torch_cublas,
+
     "Tensor Core FP16": fp16_tensor,
+
+    "Naive CUDA": naive_cuda,
+
+    "Tiled CUDA": tiled_cuda
+
 }
 
 
