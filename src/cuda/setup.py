@@ -1,0 +1,27 @@
+from setuptools import setup
+from torch.utils.cpp_extension import BuildExtension, CUDAExtension
+
+
+setup(
+    name="gemm_cuda_extensions",
+
+    ext_modules=[
+        CUDAExtension(
+            name="naive_cuda",
+            sources=[
+                "naive_gemm.cu"
+            ],
+        ),
+
+        CUDAExtension(
+            name="tiled_cuda",
+            sources=[
+                "tiled_gemm.cu"
+            ],
+        ),
+    ],
+
+    cmdclass={
+        "BuildExtension": BuildExtension
+    }
+)
