@@ -5,7 +5,7 @@ import os
 
 from strategies.cpu_numpy import run as cpu_numpy
 from strategies.torch_cublas import run as torch_cublas
-from strategies.fp16_tensor import run as fp16_tensor
+from strategies import fp32_pytorch
 from strategies.naive_cuda import run as naive_cuda
 from strategies.tiled_cuda import run as tiled_cuda
 
@@ -40,7 +40,7 @@ def main():
 
     "cuBLAS GEMM": torch_cublas,
 
-    "Tensor Core FP16": fp16_tensor,
+    "FP32 PyTorch GEMM": fp16_tensor.run,
 
     "Naive CUDA": naive_cuda,
 
