@@ -58,13 +58,21 @@ def main():
 
         runtime = experiment(A, B)
 
+        N = 4096
+
+        flops = 2 * (N ** 3)
+        
+        gflops = flops / (runtime * 1e6)
+
+
         results.append(
             {
                 "strategy": name,
-                "runtime_ms": runtime
+                "runtime_ms": runtime,
+                "GFLOPS": gflops
             }
         )
-
+        
 
     df = pd.DataFrame(results)
 
