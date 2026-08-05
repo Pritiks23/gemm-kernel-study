@@ -19,7 +19,7 @@ The independent variable is:
 All implementations compute the same operation:
 
 \[
-C = A \times B
+C = A x B
 \]
 
 while changing only the execution strategy.
@@ -44,7 +44,7 @@ The following approaches are compared:
 Operation:
 
 \[
-C = A \times B
+C = A x B
 \]
 
 Matrix dimensions:
@@ -74,9 +74,9 @@ Each implementation is evaluated using:
 
 GFLOPS calculation:
 
-\[
+$$
 GFLOPS = \frac{2N^3}{runtime(ms)\times10^6}
-\]
+$$
 
 where:
 
