@@ -1,13 +1,11 @@
 Running CPU NumPy...
-Running cuBLAS GEMM...
-Running Tensor Core FP16...
+Running PyTorch CUDA GEMM...
 Running Naive CUDA...
 Running Tiled CUDA...
 
 Results:
-           strategy  runtime_ms
-0         CPU NumPy  226.475667
-1       cuBLAS GEMM    2.955107
-2  Tensor Core FP16    0.997993
-3        Naive CUDA   38.174327
-4        Tiled CUDA   21.186748
+            strategy  runtime_ms        GFLOPS
+0          CPU NumPy  221.752793    619.784543
+1  PyTorch CUDA GEMM    2.976571  46173.588767
+2         Naive CUDA   38.974559   3526.376067
+3         Tiled CUDA   21.178899   6489.428668
