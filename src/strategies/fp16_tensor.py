@@ -4,13 +4,12 @@ import time
 
 def run(A, B):
     """
-    Runs GEMM using FP16 precision.
-    On supported NVIDIA GPUs this uses Tensor Cores.
+    Runs GEMM using FP32 precision.
     """
 
     # Convert input matrices to FP16 CUDA tensors
-    A_gpu = torch.from_numpy(A).half().cuda()
-    B_gpu = torch.from_numpy(B).half().cuda()
+    A_gpu = torch.from_numpy(A).float().cuda()
+    B_gpu = torch.from_numpy(B).float().cuda()
 
 
     # Warmup
