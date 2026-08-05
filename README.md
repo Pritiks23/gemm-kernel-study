@@ -102,9 +102,9 @@ where:
 
 Compared to CPU NumPy:
 
-\[
+$$
 \frac{221.75}{2.98} \approx 74.5\times
-\]
+$$
 
 PyTorch CUDA GEMM achieved approximately **74.5x faster execution** than the CPU implementation.
 
@@ -118,9 +118,9 @@ The tiled CUDA kernel improved performance over the naive CUDA implementation.
 
 Performance improvement:
 
-\[
-\frac{38.97 - 21.18}{38.97} \times 100
-\]
+$$
+\frac{38.97 - 21.18}{38.97} \times 100 \approx 45.6\%
+$$
 
 ≈ **45.6% improvement**
 
@@ -132,9 +132,9 @@ By loading tiles into shared memory, the kernel reduces redundant global memory 
 
 Compared with the custom tiled CUDA kernel:
 
-\[
+$$
 \frac{46173}{6489} \approx 7.1\times
-\]
+$$
 
 PyTorch CUDA GEMM achieved approximately **7.1x higher throughput**.
 
