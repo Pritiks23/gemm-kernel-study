@@ -62,11 +62,12 @@ This performance improvement comes from NVIDIA Tensor Core hardware acceleration
 
 Tensor Cores are specialized GPU units designed for high-throughput matrix operations, particularly for lower precision formats such as FP16.
 
-Compared with CPU NumPy:
 
-\[
-\frac{155.85}{0.966} \approx 161\times
-\]
+
+The speedup compared with CPU NumPy is:
+
+
+155.85 ms / 0.966 ms ≈ 161x faster
 
 The Tensor Core implementation was approximately **161x faster than the CPU baseline**.
 
@@ -124,11 +125,10 @@ Runtime:
 
 ```
 
-The tiled implementation improved performance by:
+The improvement from naive CUDA to tiled CUDA was:
 
-\[
-\frac{38.43-20.98}{38.43}\times100
-\]
+
+((38.43 - 20.98) / 38.43) × 100 ≈ 45.4%
 
 ≈ **45.4% speedup**
 
