@@ -1,111 +1,209 @@
 ![](https://rocm.blogs.amd.com/_images/software-tools-optimization-matrix-cores-cdna-images-matrix-cores-cdna.webp)
 
-
 # GEMM Kernel Optimization Study
 
 A CUDA benchmarking experiment analyzing how different matrix multiplication implementations affect GPU performance.
 
 ## Research Question
 
-How does the choice of GEMM implementation impact execution time and GPU efficiency?
+How does the choice of GEMM implementation impact execution time and GPU throughput when solving the same matrix multiplication workload?
 
-## Experimental Variable
+---
+
+# Experimental Variable
 
 The independent variable is:
 
 **Matrix multiplication implementation strategy**
 
+All implementations compute the same operation:
+
+\[
+C = A \times B
+\]
+
+while changing only the execution strategy.
+
 The following approaches are compared:
 
-## 🟢 GPU Computation Strategies
+---
+
+# 🟢 GEMM Computation Strategies
 
 | 🧩 Strategy | 📝 Description |
 |---|---|
-| 🖥️ **CPU NumPy** | CPU baseline implementation |
-| 🟩 **cuBLAS GEMM** | NVIDIA optimized FP32 GPU implementation |
-| 🟣 **Tensor Core FP16 GEMM** | FP16 matrix multiplication using Tensor Core acceleration |
-| 🔵 **Naive CUDA Kernel** | Custom CUDA implementation using global memory |
-| 🟠 **Tiled CUDA Kernel** | Custom CUDA implementation using shared memory reuse |
+| 🖥️ **CPU NumPy** | CPU baseline implementation using NumPy |
+| 🟩 **PyTorch CUDA GEMM** | GPU matrix multiplication using PyTorch CUDA backend (optimized GPU library path) |
+| 🔵 **Naive CUDA Kernel** | Custom CUDA kernel where each thread computes output elements using global memory accesses |
+| 🟠 **Tiled CUDA Kernel** | Custom CUDA kernel using shared memory tiling to improve data reuse and reduce global memory traffic |
 
 ---
 
-## Workload
+# Workload
 
 Operation:
-C = A × B
 
+\[
+C = A \times B
+\]
 
-Matrix size:
+Matrix dimensions:
 
-All strategies use the same input matrices to ensure a controlled comparison.
+```
+
+4096 x 4096
+
+````
+
+Input properties:
+
+- FP32 precision
+- Identical input matrices across all experiments
+- Same mathematical workload for every implementation
+
+The only variable changed is the GEMM implementation strategy.
 
 ---
 
-## Metrics Measured
+# Metrics Measured
 
 Each implementation is evaluated using:
 
 - Runtime (milliseconds)
-- GFLOPS
-- GPU performance characteristics
+- GFLOPS (billions of floating point operations per second)
+
+GFLOPS calculation:
+
+\[
+GFLOPS = \frac{2N^3}{runtime(ms)\times10^6}
+\]
+
+where:
+
+- \(N = 4096\)
+- \(2N^3\) represents GEMM floating point operations
 
 ---
 
-## Experiment Design
+# Results
+
+| Strategy | Runtime (ms) | GFLOPS |
+|---|---:|---:|
+| CPU NumPy | 221.75 | 619.78 |
+| PyTorch CUDA GEMM | 2.98 | 46,173.59 |
+| Naive CUDA Kernel | 38.97 | 3,526.38 |
+| Tiled CUDA Kernel | 21.18 | 6,489.43 |
+
+---
+
+# Performance Analysis
+
+## GPU Acceleration vs CPU Baseline
+
+Compared to CPU NumPy:
+
+\[
+\frac{221.75}{2.98} \approx 74.5\times
+\]
+
+PyTorch CUDA GEMM achieved approximately **74.5x faster execution** than the CPU implementation.
+
+This demonstrates the advantage of massively parallel GPU execution for large matrix operations.
+
+---
+
+## Shared Memory Optimization
+
+The tiled CUDA kernel improved performance over the naive CUDA implementation.
+
+Performance improvement:
+
+\[
+\frac{38.97 - 21.18}{38.97} \times 100
+\]
+
+≈ **45.6% improvement**
+
+By loading tiles into shared memory, the kernel reduces redundant global memory accesses and increases data reuse.
+
+---
+
+## Optimized Library Performance
+
+Compared with the custom tiled CUDA kernel:
+
+\[
+\frac{46173}{6489} \approx 7.1\times
+\]
+
+PyTorch CUDA GEMM achieved approximately **7.1x higher throughput**.
+
+This highlights the performance advantage of highly optimized GPU libraries that incorporate:
+
+- architecture-specific tuning
+- optimized memory movement
+- kernel selection strategies
+- advanced GPU scheduling
+
+---
+
+# Experiment Design
 
 ```text
-                 GEMM Benchmark
-                        |
-    ------------------------------------------------
-    |                    |                         |
-    v                    v                         v
+                    GEMM Benchmark
+                           |
+        ----------------------------------------
+        |                  |                   |
+        v                  v                   v
 
-CPU NumPy           GPU Implementations        Tensor Cores
-Baseline                  |                    FP16 GEMM
-                          |
-                ---------------------
-                |                   |
-                v                   v
+    CPU Baseline      GPU Library        Custom CUDA Kernels
+        |                  |                   |
+        |                  |          --------------------
+        |                  |          |                  |
+        v                  v          v                  v
 
-          Naive CUDA          Tiled CUDA
-          Global Memory       Shared Memory
-```
-
-## Technologies
-
-- CUDA C++
-- PyTorch CUDA Extensions
-- NVIDIA cuBLAS
-- Tensor Cores
-- Shared Memory Optimization
+   CPU NumPy       PyTorch CUDA   Naive CUDA       Tiled CUDA
+                                  Global Memory    Shared Memory
+````
 
 ---
 
-## Expected Findings
+# Technologies
 
-- CPU NumPy provides the baseline performance.
-- CUDA kernels accelerate computation through GPU parallelism.
-- Naive CUDA kernels are limited by repeated global memory access.
-- Tiled CUDA improves performance by increasing data reuse through shared memory.
-- cuBLAS achieves high performance through NVIDIA-optimized GEMM algorithms.
-- Tensor Core FP16 execution provides the highest throughput by using specialized matrix acceleration hardware.
+* CUDA C++
+* CUDA Runtime API
+* PyTorch CUDA Extensions
+* NVIDIA GPU Architecture
+* CUDA Shared Memory
+* GPU Performance Benchmarking
 
 ---
 
+# Key Findings
 
-## Goal
+* GPU acceleration dramatically improves GEMM performance compared to CPU execution.
+* PyTorch CUDA GEMM provides the highest throughput due to highly optimized GPU kernels.
+* Naive CUDA kernels are limited by inefficient global memory access patterns.
+* Tiled CUDA improves performance by increasing memory reuse through shared memory.
+* Custom CUDA kernels provide insight into GPU optimization techniques, while optimized libraries demonstrate the performance possible with production-level implementations.
+
+---
+
+# Goal
 
 This project studies how GPU performance changes when modifying the execution strategy of the same mathematical workload.
 
 The goal is to understand the impact of:
 
-- GPU parallelism
-- memory reuse
-- CUDA kernel design
-- optimized GPU libraries
-- specialized AI hardware acceleration
+* GPU parallelism
+* memory hierarchy
+* shared memory optimization
+* CUDA kernel design
+* optimized GPU libraries
 
 rather than only measuring which implementation is fastest.
 
+```
 
-4096 x 4096
+
+
