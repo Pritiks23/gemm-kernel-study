@@ -9,14 +9,14 @@ setup(
         CUDAExtension(
             name="naive_cuda",
             sources=[
-                "naive_gemm.cu"
+               "src/cuda/naive_gemm.cu"
             ],
         ),
 
         CUDAExtension(
             name="tiled_cuda",
             sources=[
-                "tiled_gemm.cu"
+                "src/cuda/tiled_gemm.cu"
             ],
         ),
     ],
